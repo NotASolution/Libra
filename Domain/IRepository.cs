@@ -6,7 +6,7 @@ namespace Domain
     {
         public void Add(IDomainPOCO domainPOCO);
         public void Redact(IDomainPOCO pocoToRedact, IDomainPOCO updatedPOCO);
-        public List<IDomainPOCO> Retrieve(Type type);
+        public List<IDomainPOCO> Retrieve(TableEnum table);
         public IDomainPOCO Delete(IDomainPOCO existingTableRecord);
     }
 }

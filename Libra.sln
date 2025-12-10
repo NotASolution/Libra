@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingOnConsole", "Testing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO_Data_Access", "ADO_Data_Access\ADO_Data_Access.csproj", "{9BD06272-2F4E-4109-925F-B6F9C13E73CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsUI", "WindowsFormsUI\WindowsFormsUI.csproj", "{6915F68A-312F-49D5-A701-7B824C378E97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9BD06272-2F4E-4109-925F-B6F9C13E73CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BD06272-2F4E-4109-925F-B6F9C13E73CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BD06272-2F4E-4109-925F-B6F9C13E73CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6915F68A-312F-49D5-A701-7B824C378E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6915F68A-312F-49D5-A701-7B824C378E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6915F68A-312F-49D5-A701-7B824C378E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6915F68A-312F-49D5-A701-7B824C378E97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

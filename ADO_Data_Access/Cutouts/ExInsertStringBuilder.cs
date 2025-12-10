@@ -1,6 +1,7 @@
 ﻿using ADO_Data_Access.Enumerations;
 using Domain.ModelPOCO;
 using System.Text;
+using Domain;
 
 public class InsertStringBuilder
 {

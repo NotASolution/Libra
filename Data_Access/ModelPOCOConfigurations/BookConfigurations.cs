@@ -10,28 +10,8 @@ namespace BareEFC_Data_Access.ModelPOCO
     {
         public void Configure(EntityTypeBuilder<BookEntity> entity)
         {
-            /*
-            var genreToString = new Dictionary<GenreEnum, string>
-            {
-                 { GenreEnum.History, "История" },
-                 { GenreEnum.NonFiction, "Научпоп" },
-                 { GenreEnum.Fiction, "Художественная литература" },
-                 { GenreEnum.Textbook, "Учебное пособие"},
-                 { GenreEnum.ForKids, "Для детей" }
-            };
-
-            var stringToGenre = genreToString.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
-
-            var genreConverter = new ValueConverter<GenreEnum, string>(
-                v => genreToString[v],  // Convert Genre → String
-                v => stringToGenre[v]   // Convert String → Genre
-            );
-
-            */
-
             entity.ToTable("Books", "SoleSchema");
             entity.HasKey(book => book.Cipher);
-            //entity.Property(book => book.Genre).HasConversion(genreConverter);
             entity.Property(book => book.Genre).IsRequired().HasColumnName("book_genre");
             entity.Property(book => book.Cipher).IsRequired().HasColumnName("sypher").HasColumnType("varchar(10)");
             entity.Property(book => book.Author).IsRequired().HasColumnName("author").HasColumnType("text");

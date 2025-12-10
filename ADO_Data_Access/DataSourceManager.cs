@@ -12,8 +12,8 @@ namespace ADO_Data_Access
         static DataSourceManager()
         {
             NpgsqlDataSourceBuilder dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
-            dataSourceBuilder.MapEnum<EmployeeSexEnum>("\"SoleSchema\".sex", new NpgsqlEmployeeSexEnumTranslator());
-            dataSourceBuilder.MapEnum<GenreEnum>("\"SoleSchema\".genre", new NpgsqlGenreEnumTranslator());
+            dataSourceBuilder.MapEnum<EmployeeSexEnum>("SoleSchema.sex", new NpgsqlEmployeeSexEnumTranslator());
+            dataSourceBuilder.MapEnum<GenreEnum>("SoleSchema.genre", new NpgsqlGenreEnumTranslator());
             dataSource = dataSourceBuilder.Build();
         }
         public static NpgsqlDataSource GetDataSource()

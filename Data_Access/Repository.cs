@@ -10,6 +10,7 @@ namespace BareEFC_Data_Access
         DomainObjectFactory domainFactory;
         EntityFactory entityFactory;
 
+
         public void Add(IDomainPOCO domainPOCO)
         {
             entityRepository = EntityRepositoryCreator.CreateRepository(EntityFactory.GetEntityType(domainPOCO.GetType()));
@@ -32,9 +33,9 @@ namespace BareEFC_Data_Access
             entityRepository.Redact(entityFactory.CreateEntity(pocoToRedact), entityFactory.CreateEntity(updatedPOCO));
         }
 
-        public List<IDomainPOCO> Retrieve(Type type)
+        public List<IDomainPOCO> Retrieve(TableEnum table)
         {
-            entityRepository = EntityRepositoryCreator.CreateRepository(EntityFactory.GetEntityType(type));
+            entityRepository = EntityRepositoryCreator.CreateRepository(EntityFactory.GetEntityType(Mapping.tableToType[table]));
             domainFactory = new DomainObjectFactory();
             List<IDomainPOCO> domainPOCOs = entityRepository.Retrieve().Select(ent => domainFactory.CreateDomainPOCO(ent)).ToList();
 

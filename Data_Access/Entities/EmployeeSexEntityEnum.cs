@@ -4,9 +4,9 @@ namespace BareEFC_Data_Access.Entities
 {
     public enum EmployeeSexEntityEnum
     {
-        [PgName("Мужчина")]
+        //[PgName("Мужчина")]
         Male,
-        [PgName("Женщина")]
+        //[PgName("Женщина")]
         Female
     }
 }

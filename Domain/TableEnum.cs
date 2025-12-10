@@ -1,4 +1,4 @@
-﻿namespace ADO_Data_Access.Enumerations
+﻿namespace Domain
 {
     public enum TableEnum
     {

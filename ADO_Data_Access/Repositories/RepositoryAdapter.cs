@@ -3,26 +3,30 @@ using Domain.ModelPOCO;
 
 namespace ADO_Data_Access.Repositories
 {
-    internal class RepositoryAdapter : IRepository
+    public class RepositoryAdapter : IRepository
     {
+        private RepositoryADO repository = new RepositoryADO();
+
         public void Add(IDomainPOCO domainPOCO)
         {
-            throw new NotImplementedException();
+            repository.Create(domainPOCO);
         }
 
         public IDomainPOCO Delete(IDomainPOCO existingTableRecord)
         {
-            throw new NotImplementedException();
+            repository.Remove(existingTableRecord);
+            return existingTableRecord;
         }
 
         public void Redact(IDomainPOCO pocoToRedact, IDomainPOCO updatedPOCO)
         {
-            throw new NotImplementedException();
+            repository.Redact(pocoToRedact, updatedPOCO);
         }
 
-        public List<IDomainPOCO> Retrieve(Type type)
+
+        public List<IDomainPOCO> Retrieve(TableEnum table)
         {
-            throw new NotImplementedException();
+            return repository.Retrieve(table);
         }
     }
 }

@@ -4,15 +4,15 @@ namespace BareEFC_Data_Access.Entities
 {
     public enum GenreEntityEnum
     {
-        [PgName("Научпоп")]
+        //[PgName("Научпоп")]
         NonFiction,
-        [PgName ("История")]
+        //[PgName ("История")]
         History,
-        [PgName("Учебник")]
+        //[PgName("Учебник")]
         Textbook,
-        [PgName("Художественная литература")]
+        //[PgName("Художественная литература")]
         Fiction,
-        [PgName("Для детей")]
+        //[PgName("Для детей")]
         ForKids
     }
 }

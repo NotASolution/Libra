@@ -1,6 +1,7 @@
 ﻿using BareEFC_Data_Access.Entities;
 using BareEFC_Data_Access.ModelPOCO;
 using BareEFC_Data_Access.ModelPOCOConfigurations;
+using BareEFC_Data_Access.NpgsqlTranslator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Npgsql;
@@ -21,8 +22,8 @@ namespace Data_Access
         static LibraryContext()
         {
             var builder = new NpgsqlDataSourceBuilder("Host=localhost;Port=5432;Database=DBCourse_Spring;Username=postgres;Password=Ancient88Kedr");
-            builder.MapEnum<GenreEntityEnum>("\"SoleSchema\".genre");
-            builder.MapEnum<EmployeeSexEntityEnum>("\"SoleSchema\".genre");
+            builder.MapEnum<GenreEntityEnum>("SoleSchema.genre", new NpgsqlEmployeeSexEnumTranslator());
+            builder.MapEnum<EmployeeSexEntityEnum>("SoleSchema.genre", new NpgsqlGenreEnumTranslator());
             dataSource = builder.Build();
         }
         
@@ -44,7 +45,7 @@ namespace Data_Access
             modelBuilder.ApplyConfiguration(new BookTokenConfigurations());
             modelBuilder.ApplyConfiguration(new MemberConfiguration());
             modelBuilder.ApplyConfiguration(new ReadingRoomConfigurations());
-
+            
             modelBuilder.HasPostgresEnum<EmployeeSexEntityEnum>();
             modelBuilder.HasPostgresEnum<GenreEntityEnum>();
         }

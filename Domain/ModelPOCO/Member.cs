@@ -1,4 +1,5 @@
-﻿namespace Domain.ModelPOCO
+﻿using System.Drawing;
+namespace Domain.ModelPOCO
 {
     public class Member : IDomainPOCO
     {

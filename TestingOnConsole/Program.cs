@@ -4,25 +4,20 @@ using Domain.ModelPOCO;
 using ADO_Data_Access.Enumerations;
 using Npgsql;
 using ADO_Data_Access;
+using BareEFC_Data_Access;
 namespace TestingOnConsole
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            List<IDomainPOCO> Books = new List<IDomainPOCO>()
-            {
-                new BookBuilder().AddCipher("LRISKMGIPO").AddAuthor("Jimmy Neutron").AddTitle("How to be a boy genius")
-                                       .AddPublisher("His dad").AddGenre(GenreEnum.Textbook).AddDateOfPublishing(DateTime.Now).Build()
-            };
-
-            AddBookWithInsertionString(Books);
-
+            IRepository repository = new Repository();
+            AddBook(repository);
         }
         private static void AddBook(IRepository repo)
         {
-            BookBuilder kek= new BookBuilder().AddAuthor("Jimmy Neutron").AddTitle("How to be a boy genius")
-                                       .AddPublisher("His dad").AddGenre(GenreEnum.Textbook).AddDateOfPublishing(DateTime.Now);
+            BookBuilder kek= new BookBuilder().AddCipher("IWANTBETR!").AddAuthor("James Rum").AddTitle("How to party in a pirate manner")
+                                       .AddPublisher("Unoficial Crew").AddGenre(GenreEnum.Textbook).AddDateOfPublishing(DateTime.Now);
 
             Book lol = kek.AddCipher("Scandalous").Build();
 
