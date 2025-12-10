@@ -13,7 +13,7 @@ namespace ADO_Data_Access.Repositories
        
         public RepositoryADO()
         {
-            DataSource = DataSourceManager.GetDataSource(); 
+            DataSource = DataSourceManager.GetDataSourceManager().GetDataSource(); 
         }
         public List<IDomainPOCO> Retrieve(TableEnum table)
         {
@@ -22,10 +22,16 @@ namespace ADO_Data_Access.Repositories
             using (NpgsqlConnection connection = DataSource.CreateConnection())
             {
                 var command = DataSource.CreateCommand($"SELECT * FROM \"SoleSchema\".\"{Mapping.tableToStringName[table]}\"");
-               
-                using (NpgsqlDataReader reader = command.ExecuteReader())
+                try
                 {
-                    domainObjects = DataReaderToListConverter.ConvertToList(reader, table);
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        domainObjects = DataReaderToListConverter.ConvertToList(reader, table);
+                    }
+                }
+                catch (PostgresException ex) when (ex.SqlState == "42501")
+                {
+                    Console.WriteLine("Access denied: insufficient privileges.");
                 }
 
             }
@@ -36,19 +42,33 @@ namespace ADO_Data_Access.Repositories
 
         public void Create(IDomainPOCO domainPocoToAdd)
         {
-            using (NpgsqlConnection connection = DataSource.CreateConnection())
+            try
             {
-                var command = new InsertCommandBuilder().SetDataSource(DataSource).SetTable(Mapping.typeToTable[domainPocoToAdd.GetType()]).BuildInsertionCommand([domainPocoToAdd]);
-                command.ExecuteNonQuery();
+                using (NpgsqlConnection connection = DataSource.CreateConnection())
+                {
+                    var command = new InsertCommandBuilder().SetDataSource(DataSource).SetTable(Mapping.typeToTable[domainPocoToAdd.GetType()]).BuildInsertionCommand([domainPocoToAdd]);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (PostgresException ex) when (ex.SqlState == "42501")
+            {
+                Console.WriteLine("Access denied: insufficient privileges.");
             }
         }
 
         public void Redact(IDomainPOCO domainPocoToRedact, IDomainPOCO updatedDomainPoco)
         {
-            using (NpgsqlConnection connection = DataSource.CreateConnection())
-            { 
-                var command = new UpdateCommandBuilder().SetDataSource(DataSource).SetTargetDomainObject(domainPocoToRedact).SetUpdatedDomainObject(updatedDomainPoco).Build();
-                command.ExecuteNonQuery();
+            try
+            {
+                using (NpgsqlConnection connection = DataSource.CreateConnection())
+                {
+                    var command = new UpdateCommandBuilder().SetDataSource(DataSource).SetTargetDomainObject(domainPocoToRedact).SetUpdatedDomainObject(updatedDomainPoco).Build();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (PostgresException ex) when (ex.SqlState == "42501")
+            {
+                Console.WriteLine("Access denied: insufficient privileges.");
             }
 
         }

@@ -65,6 +65,7 @@
             RedactMenuButton.Name = "RedactMenuButton";
             RedactMenuButton.Size = new Size(55, 20);
             RedactMenuButton.Text = "Redact";
+            RedactMenuButton.Click += RedactMenuButton_Click;
             // 
             // DeleteMenuButton
             // 

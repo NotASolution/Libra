@@ -105,7 +105,9 @@ namespace ADO_Data_Access
                     TelephoneNumber = reader["telephone_no"].ToString(),
                     Education = reader["education"].ToString(),
                     ReadingRoomNumber = Convert.ToInt32(reader["reading_room_number"]),
-                    Photo = reader.GetFieldValue<byte[]>(reader.GetOrdinal("photo")),
+                    Photo = !reader.IsDBNull(reader.GetOrdinal("photo"))
+                    ? reader.GetFieldValue<byte[]>(reader.GetOrdinal("photo"))
+                    : null,
                     FullName = reader["fullname"].ToString()
 
                 });
@@ -144,7 +146,9 @@ namespace ADO_Data_Access
                     TaxpayerId = reader["taxpayer_id"].ToString(),
                     SocialSecurityNumber = reader["social_security_no"].ToString(),
                     EmployeeSex = reader.GetFieldValue<EmployeeSexEnum>(reader.GetOrdinal("employee_sex")),
-                    Photo = reader.GetFieldValue<byte[]>(reader.GetOrdinal("photo"))
+                    Photo = !reader.IsDBNull(reader.GetOrdinal("photo"))
+                    ? reader.GetFieldValue<byte[]>(reader.GetOrdinal("photo"))
+                    :null
                 });
             }
 

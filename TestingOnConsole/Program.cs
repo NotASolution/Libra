@@ -44,7 +44,7 @@ namespace TestingOnConsole
 
         private static void AddBookWithInsertionString(List<IDomainPOCO> domainPocos)
         {
-            var dataSource = DataSourceManager.GetDataSource();
+            var dataSource = DataSourceManager.GetDataSourceManager().GetDataSource();
 
             InsertCommandBuilder commandBuilder = new InsertCommandBuilder();
             var command = commandBuilder.SetDataSource(dataSource).SetTable(TableEnum.Books).BuildInsertionCommand(domainPocos);

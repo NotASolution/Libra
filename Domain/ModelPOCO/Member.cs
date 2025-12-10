@@ -10,7 +10,7 @@ namespace Domain.ModelPOCO
         private string _telephoneNumber;
         private string _education;
         private int _readingRoomNumber;
-        private byte[] _photo;
+        private byte[]? _photo;
         private string _fullName;
 
         public string MemberId { get { return _memberId; } set { _memberId = value; } }
@@ -20,7 +20,7 @@ namespace Domain.ModelPOCO
         public string TelephoneNumber {  get { return _telephoneNumber; } set { _telephoneNumber = value; }}
         public string Education {  get { return _education; } set { _education = value; }}
         public int ReadingRoomNumber { get {return _readingRoomNumber;} set { _readingRoomNumber = value; } }
-        public byte[] Photo { get { return _photo; } set {_photo = value; }}
+        public byte[]? Photo { get { return _photo; } set {_photo = value; }}
         public string FullName { get { return _fullName; } set { _fullName = value; }}
     }
 }
