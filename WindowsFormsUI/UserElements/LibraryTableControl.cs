@@ -292,42 +292,7 @@ namespace WindowsFormsUI.UserElements
             DataTableView.Columns.Clear();
 
             SelectedTable = TableEnum.Employees;
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Номер паспорта",
-                DataPropertyName = "PassportNumber",
-                Name = "PassportNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Полное имя",
-                DataPropertyName = "FullName",
-                Name = "FullnameColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "ИНН",
-                DataPropertyName = "TaxpayerId",
-                Name = "TaxpayerIdColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "СНИЛС",
-                DataPropertyName = "SocialSecurityNumber",
-                Name = "SocSecColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Пол",
-                DataPropertyName = "EmployeeSex",
-                Name = "SexColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewImageColumn()
-            {
-                HeaderText = "Фото",
-                DataPropertyName = "Photo",
-                Name = "PhotoColumn"
-            });
+            new ColumnFactory().Get
 
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<Employee>().ToList();
         }
