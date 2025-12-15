@@ -48,6 +48,7 @@
             PasswordTextBox.Size = new Size(198, 23);
             PasswordTextBox.TabIndex = 1;
             PasswordTextBox.Text = "Password";
+            PasswordTextBox.UseSystemPasswordChar = true;
             // 
             // EnterButton
             // 

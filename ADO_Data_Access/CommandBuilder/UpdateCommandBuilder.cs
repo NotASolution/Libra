@@ -43,7 +43,7 @@ namespace ADO_Data_Access.CommandBuilder
         }
         public NpgsqlCommand BuildBooksUpdateCommand()
         {
-            var commandString = new StringBuilder($"UPDATE {Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]} SET\n" +
+            var commandString = new StringBuilder($"UPDATE \"SoleSchema\".\"{Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]}\" SET\n" +
                                                   "sypher = @cipher,\n" +
                                                   "title = @title,\n" +
                                                   "author = @author,\n" +
@@ -68,7 +68,7 @@ namespace ADO_Data_Access.CommandBuilder
 
         public NpgsqlCommand BuildBookTokensUpdateCommand()
         {
-            var commandString = new StringBuilder($"UPDATE {Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]} SET\n" +
+            var commandString = new StringBuilder($"UPDATE \"SoleSchema\".\"{Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]}\" SET\n" +
                                                   "token_id = @tokenId,\n" +
                                                   "sypher = @tokenCipher,\n" +
                                                   "room_no = @tokenRoomNumber,\n" +
@@ -86,7 +86,7 @@ namespace ADO_Data_Access.CommandBuilder
         }
         public NpgsqlCommand BuildBookLeasesUpdateCommand()
         {
-            var commandString = new StringBuilder($"UPDATE {Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]} SET\n" +
+            var commandString = new StringBuilder($"UPDATE \"SoleSchema\".\"{Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]}\" SET\n" +
                                                   "token_id = @tokenId,\n" +
                                                   "lessee_id = @lesseeId,\n" +
                                                   "date_of_initiation = @dateOfInitiation,\n" +
@@ -112,7 +112,7 @@ namespace ADO_Data_Access.CommandBuilder
 
         public NpgsqlCommand BuildMembersUpdateCommand()
         {
-            var commandString = new StringBuilder($"UPDATE {Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]} SET\n" +
+            var commandString = new StringBuilder($"UPDATE \"SoleSchema\".\"{Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]}\" SET\n" +
                                                   "member_id_no = @memberId,\n" +
                                                   "passport_no = @passportNumber,\n" +
                                                   "birth_date = @birthDate,\n" +
@@ -142,11 +142,10 @@ namespace ADO_Data_Access.CommandBuilder
         public NpgsqlCommand BuildReadingRoomsUpdateCommand()
         {
 
-            var commandString = new StringBuilder($"UPDATE {Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]} SET\n" +
+            var commandString = new StringBuilder($"UPDATE \"SoleSchema\".\"{Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]}\" SET\n" +
                                                   "room_no = @roomNumber,\n" +
                                                   "room_name = @roomName,\n" +
-                                                  "capacity = @capacity,\n" +
-                                                  
+                                                  "capacity = @capacity\n" +
                                                   "WHERE room_no = @targetRoomNumber");
 
             var command = Source.CreateCommand(commandString.ToString());
@@ -154,20 +153,20 @@ namespace ADO_Data_Access.CommandBuilder
             command.Parameters.AddWithValue("roomNumber", (UpdatedDomainObject as ReadingRoom).RoomNumber);
             command.Parameters.AddWithValue("roomName", (UpdatedDomainObject as ReadingRoom).Name);
             command.Parameters.AddWithValue("capacity", (UpdatedDomainObject as ReadingRoom).Capacity);
-            command.Parameters.AddWithValue("roomNumber", (TargetDomainObject as BookToken).RoomNumber);
+            command.Parameters.AddWithValue("targetRoomNumber", (TargetDomainObject as ReadingRoom).RoomNumber);
 
             return command;
         }
 
         public NpgsqlCommand BuildEmployeesUpdateCommand()
         {
-            var commandString = new StringBuilder($"UPDATE {Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]} SET\n" +
+            var commandString = new StringBuilder($"UPDATE \"SoleSchema\".\"{Mapping.tableToStringName[Mapping.typeToTable[TargetDomainObject.GetType()]]}\" SET\n" +
                                                   "passport_no = @passportNumber,\n" +
                                                   "fullname = @fullname,\n" +
                                                   "taxpayer_id = @taxpayerId,\n" +
                                                   "social_security_no = @socSecNumber,\n" +
                                                   "employee_sex = @sex,\n" +
-                                                  "photo = @photo,\n" +
+                                                  "photo = @photo\n" +
                                                   "WHERE passport = @targetPassportNumber");
 
             var command = Source.CreateCommand(commandString.ToString());

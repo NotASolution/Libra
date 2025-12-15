@@ -2,6 +2,7 @@
 using Domain;
 using Domain.ModelPOCO;
 using System.ComponentModel;
+using WindowsFormsUI.AdditionRedactionWindows;
 using WindowsFormsUI.NewFolder;
 using WindowsFormsUI.Service;
 
@@ -29,11 +30,16 @@ namespace WindowsFormsUI.UserElements
             }
         }
 
-        private Dictionary<TableEnum, Func<IAdditionRedactionHost, Form>> tableToAR = new Dictionary<TableEnum, Func<IAdditionRedactionHost, Form>>();
+        private Dictionary<TableEnum, Func<IAdditionRedactionHost, Form>> tableToAddition = new Dictionary<TableEnum, Func<IAdditionRedactionHost, Form>>();
+
+        private Dictionary<TableEnum, Func<IAdditionRedactionHost, IDomainPOCO, Form>> tableToRedaction = new Dictionary<TableEnum, Func<IAdditionRedactionHost, IDomainPOCO, Form>>();
 
         public LibraryTableControl()
         {
-            tableToAR.Add(TableEnum.ReadingRooms, (RedactionHost) => new ReadingRoomsARForm(RedactionHost));
+            tableToAddition.Add(TableEnum.ReadingRooms, (RedactionHost) => new ReadingRoomsARForm(RedactionHost));
+            tableToRedaction.Add(TableEnum.ReadingRooms, (RedactionHost, DomainObject) => new ReadingRoomsARForm(RedactionHost, (ReadingRoom)DomainObject));
+            tableToAddition.Add(TableEnum.Members, (RedactionHost) => new MembersARForm(RedactionHost));
+            tableToRedaction.Add(TableEnum.Members, (RedactionHost, DomainObject) => new MembersARForm(RedactionHost, (Member)DomainObject));
             Repository = new RepositoryAdapter();
             InitializeComponent();
             DataTableView.AutoGenerateColumns = false;
@@ -41,14 +47,16 @@ namespace WindowsFormsUI.UserElements
 
         }
 
-        public void AcceptDomainObject(IDomainPOCO domainObject)
+        public void AcceptDomainObject(IDomainPOCO domainObject, bool isAddition)
         {
-            Repository.Add(domainObject);
+            if (isAddition) Repository.Add(domainObject);
+            else Repository.Redact(TargetDomainObject, domainObject);
         }
 
         private void AddMenuButton_Click(object sender, EventArgs e)
         {
-            var ReadingRoomsAdditionForm = tableToAR[SelectedTable](this);
+            if (TargetDomainObject == null) return;
+            var ReadingRoomsAdditionForm = tableToAddition[SelectedTable](this);
             ReadingRoomsAdditionForm.ShowDialog();
         }
 
@@ -56,6 +64,8 @@ namespace WindowsFormsUI.UserElements
         {
             DataTableView.Columns.Clear();
 
+            new ColumnFactory().GetTableColumns(SelectedTable).ForEach( column => DataTableView.Columns.Add(column));
+            /*
             SelectedTable = TableEnum.Books;
             DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
             {
@@ -98,7 +108,7 @@ namespace WindowsFormsUI.UserElements
                 HeaderText = "Количество",
                 DataPropertyName = "Amount",
                 Name = "AmountColumn"
-            });
+            });*/
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<Book>().ToList();
         }
 
@@ -237,11 +247,11 @@ namespace WindowsFormsUI.UserElements
             {
                 HeaderText = "Образование",
                 DataPropertyName = "Education",
-                Name = "CapacityColumn"
+                Name = "EducationColumn"
             });
             DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
             {
-                HeaderText = "Название",
+                HeaderText = "Имя",
                 DataPropertyName = "FullName",
                 Name = "FullNameColumn"
             });
@@ -341,7 +351,11 @@ namespace WindowsFormsUI.UserElements
 
         private void RedactMenuButton_Click(object sender, EventArgs e)
         {
-
+            if (TargetDomainObject == null) return;
+            var ReadingRoomsAdditionForm = tableToRedaction[SelectedTable](this, TargetDomainObject);
+            ReadingRoomsAdditionForm.ShowDialog();
         }
+
+
     }
 }

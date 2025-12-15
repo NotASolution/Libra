@@ -21,7 +21,7 @@ namespace ADO_Data_Access.Repositories
 
             using (NpgsqlConnection connection = DataSource.CreateConnection())
             {
-                var command = DataSource.CreateCommand($"SELECT * FROM \"SoleSchema\".\"{Mapping.tableToStringName[table]}\"");
+                var command = new SelectCommandBuilder().SetDataSource(DataSource).SetTable(table).SelectAll(DataSourceManager.GetDataSourceManager().GetCurrentUsername());//DataSource.CreateCommand($"SELECT * FROM \"SoleSchema\".\"{Mapping.tableToStringName[table]}\"");
                 try
                 {
                     using (NpgsqlDataReader reader = command.ExecuteReader())

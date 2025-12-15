@@ -5,32 +5,12 @@ using Npgsql;
 namespace ADO_Data_Access
 {
     public class DataSourceManager
-    {/*
-        private static NpgsqlDataSource dataSource;
-        private static NpgsqlDataSourceBuilder builder;
-        private static string Username;
-        private static string Password;
-        private static string connectionString; 
-
-        public static NpgsqlDataSource GetDataSource()
-        {
-            dataSource = builder.Build();
-            return dataSource;
-        }
-        public static void SetNameAndPassword(string username, string password)
-        {
-            Username = username;
-            Password = password;
-            connectionString = $"Host=localhost;Port=5432;Database=DBCourse_Spring;Username={Username};Password={Password}";
-            builder = new NpgsqlDataSourceBuilder(connectionString);
-            builder.MapEnum<EmployeeSexEnum>("SoleSchema.sex", new NpgsqlEmployeeSexEnumTranslator());
-            builder.MapEnum<GenreEnum>("SoleSchema.genre", new NpgsqlGenreEnumTranslator());
-        }*/
+    {
 
         private NpgsqlDataSource dataSource;
         private Dictionary<string, string> usernameToPassword = new Dictionary<string, string>()
         {
-            { "superuser", "password1"},
+            { "administrator", "password1"},
             { "library_member", "user_pass"},
             { "library_employee", "employee_pass"}
         };
@@ -61,6 +41,11 @@ namespace ADO_Data_Access
                 return true;
             }
             return false;
+        }
+
+        internal string GetCurrentUsername()
+        {
+            return Username;
         }
 
         public NpgsqlDataSource GetDataSource()
