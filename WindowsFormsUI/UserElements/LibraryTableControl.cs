@@ -44,6 +44,7 @@ namespace WindowsFormsUI.UserElements
             InitializeComponent();
             DataTableView.AutoGenerateColumns = false;
             DataTableView.DataSource = DataTableSource;
+            DataTableView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
         }
 
@@ -63,52 +64,9 @@ namespace WindowsFormsUI.UserElements
         private void BooksTableSelectButton_Click(object sender, EventArgs e)
         {
             DataTableView.Columns.Clear();
-
-            new ColumnFactory().GetTableColumns(SelectedTable).ForEach( column => DataTableView.Columns.Add(column));
-            /*
             SelectedTable = TableEnum.Books;
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Шифр",
-                DataPropertyName = "Cipher",
-                Name = "CipherColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Название",
-                DataPropertyName = "Title",
-                Name = "TitleColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Автор",
-                DataPropertyName = "Author",
-                Name = "AuthorColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Жанр",
-                DataPropertyName = "Genre",
-                Name = "GenreColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Издание",
-                DataPropertyName = "Publisher",
-                Name = "PublisherColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Дата издания",
-                DataPropertyName = "DateOfPublishing",
-                Name = "PubDateColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Количество",
-                DataPropertyName = "Amount",
-                Name = "AmountColumn"
-            });*/
+
+            ColumnFactory.GetColumns(SelectedTable).ForEach(column => DataTableView.Columns.Add(column));
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<Book>().ToList();
         }
 
@@ -117,81 +75,17 @@ namespace WindowsFormsUI.UserElements
             DataTableView.Columns.Clear();
             SelectedTable = TableEnum.BookTokens;
 
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Id Книги",
-                DataPropertyName = "TokenId",
-                Name = "MemberIdColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Шифр книги",
-                DataPropertyName = "TokenCipher",
-                Name = "TokenCipherColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Читальный зал",
-                DataPropertyName = "RoomNumber",
-                Name = "RoomNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Предполагаемая дата возврата",
-                DataPropertyName = "DateOfClosure",
-                Name = "DateOfClosureColumn"
-            });
+            ColumnFactory.GetColumns(SelectedTable).ForEach(column => DataTableView.Columns.Add(column));
 
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<BookToken>().ToList();
         }
 
         private void BookLeasesSelectButton_Click(object sender, EventArgs e)
         {
+            DataTableView.Columns.Clear();
             SelectedTable = TableEnum.BookLeases;
 
-
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Id Книги",
-                DataPropertyName = "TokenId",
-                Name = "MemberIdColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Id Заёмщика",
-                DataPropertyName = "LesseeId",
-                Name = "PassportNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Дата займа",
-                DataPropertyName = "DateOfInitiation",
-                Name = "DateOfInitiation"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Предполагаемая дата возврата",
-                DataPropertyName = "DateOfClosure",
-                Name = "DateOfClosureColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Фактическая дата возврата",
-                DataPropertyName = "FactualDateOfClosure",
-                Name = "FactClosureNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewImageColumn()
-            {
-                HeaderText = "Сумма долга",
-                DataPropertyName = "SumOfFine",
-                Name = "SumOfFineColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Ответственный сотрудник",
-                DataPropertyName = "ResponsibleEmployee",
-                Name = "ResponsibleEmployeeColumn"
-            });
+            ColumnFactory.GetColumns(SelectedTable).ForEach(column => DataTableView.Columns.Add(column));
 
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<BookLease>().ToList();
         }
@@ -201,60 +95,7 @@ namespace WindowsFormsUI.UserElements
             DataTableView.Columns.Clear();
             SelectedTable = TableEnum.Members;
 
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Id",
-                DataPropertyName = "MemberId",
-                Name = "MemberIdColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Номер Паспорта",
-                DataPropertyName = "PassportNumber",
-                Name = "PassportNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Дата рождения",
-                DataPropertyName = "Birthdate",
-                Name = "BirthdateColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Адрес",
-                DataPropertyName = "Address",
-                Name = "AddressColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Номер Телефона",
-                DataPropertyName = "TelephoneNumber",
-                Name = "TelephoneNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewImageColumn()
-            {
-                HeaderText = "Фото",
-                DataPropertyName = "Photo",
-                Name = "PhotoColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Номер комнаты",
-                DataPropertyName = "RoomNumber",
-                Name = "RoomNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Образование",
-                DataPropertyName = "Education",
-                Name = "EducationColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Имя",
-                DataPropertyName = "FullName",
-                Name = "FullNameColumn"
-            });
+            ColumnFactory.GetColumns(SelectedTable).ForEach(column => DataTableView.Columns.Add(column));
 
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<Member>().ToList();
         }
@@ -265,24 +106,7 @@ namespace WindowsFormsUI.UserElements
 
             SelectedTable = TableEnum.ReadingRooms;
 
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Номер",
-                DataPropertyName = "RoomNumber",
-                Name = "RoomNumberColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Вместительность",
-                DataPropertyName = "Capacity",
-                Name = "CapacityColumn"
-            });
-            DataTableView.Columns.Add(new DataGridViewTextBoxColumn()
-            {
-                HeaderText = "Название",
-                DataPropertyName = "Name",
-                Name = "NameColumn"
-            });
+            ColumnFactory.GetColumns(SelectedTable).ForEach(column => DataTableView.Columns.Add(column));
 
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<ReadingRoom>().ToList();
         }
@@ -292,7 +116,7 @@ namespace WindowsFormsUI.UserElements
             DataTableView.Columns.Clear();
 
             SelectedTable = TableEnum.Employees;
-            new ColumnFactory().Get
+            ColumnFactory.GetColumns(SelectedTable).ForEach(column => DataTableView.Columns.Add(column));
 
             DataTableView.DataSource = Repository.Retrieve(SelectedTable).Cast<Employee>().ToList();
         }

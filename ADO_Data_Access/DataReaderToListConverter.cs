@@ -83,7 +83,7 @@ namespace ADO_Data_Access
                     DateOfClosure = reader.GetFieldValue<DateTime>(reader.GetOrdinal("date_of_closure")),
                     FactualDateOfClosure = reader.GetFieldValue<DateTime>(reader.GetOrdinal("date_of_closure_fact")),
                     SumOfFine = reader.GetFieldValue<int>(reader.GetOrdinal("sum_of_fine")),
-                    ResponsibleEmployee = reader.GetFieldValue<string>(reader.GetOrdinal("responsible_employee"))
+                    ResponsibleEmployee = reader.GetFieldValue<string>(reader.GetOrdinal("responsible_employee_id"))
 
                 });
             }

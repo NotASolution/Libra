@@ -42,10 +42,11 @@ namespace WindowsFormsUI.Service
 
             if (memberTableRowForm.Cells["PhotoColumn"].Value != null)
             {
-                using (MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream((byte[])memberTableRowForm.Cells["PhotoColumn"].Value))
                 {
-
-                    ((memberTableRowForm.Cells["PhotoColumn"].Value) as Image).Save(ms, ImageFormat.Png);
+                    var g = memberTableRowForm.Cells["PhotoColumn"].Value;
+                    Image img = Image.FromStream(ms);
+                    img.Save(ms, ImageFormat.Png);
                     BottledImage = ms.ToArray();
                 }
             }
@@ -57,7 +58,7 @@ namespace WindowsFormsUI.Service
                     Address = memberTableRowForm.Cells["AddressColumn"].Value.ToString(),
                     TelephoneNumber = memberTableRowForm.Cells["TelephoneNumberColumn"].Value.ToString(),
                     Photo = BottledImage,
-                    ReadingRoomNumber = Convert.ToInt32(memberTableRowForm.Cells["RoomNumberColumn"].Value),
+                    ReadingRoomNumber = Convert.ToInt32(memberTableRowForm.Cells["ReadingRoomNumberColumn"].Value),
                     Education = memberTableRowForm.Cells["EducationColumn"].Value.ToString(),
                     FullName = memberTableRowForm.Cells["FullNameColumn"].Value.ToString()
 

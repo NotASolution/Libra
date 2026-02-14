@@ -5,17 +5,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Runtime.InteropServices.Marshalling;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace WindowsFormsUI.AdditionRedactionWindows
 {
     public partial class MembersARForm : Form
     {
-        private byte[] BotteledImage;
+        private byte[] BottledImage;
         private Member SelectedMember { get; set; }
         private bool IsAddition { get; set; } = false;
         private IAdditionRedactionHost Host { get; set; }
@@ -50,7 +46,7 @@ namespace WindowsFormsUI.AdditionRedactionWindows
             TelephoneNumberTextBox.Text = domainObject.TelephoneNumber;
             if (domainObject.Photo != null)
                 using (MemoryStream ms = new MemoryStream(domainObject.Photo)) MemberPictureBox.Image = Image.FromStream(ms);
-
+            BottledImage = domainObject.Photo;
         }
 
         private void ImageLoad_Click(object sender, EventArgs e)
@@ -59,24 +55,25 @@ namespace WindowsFormsUI.AdditionRedactionWindows
 
             if (MemberPictureBox.Image != null)
             {
-                BotteledImage = ImageToByteArray(MemberPictureBox.Image);
+                BottledImage = ImageToByteArray(MemberPictureBox.Image);
                 // Now you can store 'data' in DB or do anything you need
             }
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)
         {
+            var k = 
             SelectedMember = new Member()
             {
                 PassportNumber = PassportNumberTextBox.Text,
                 Address = AddressTextBox.Text,
                 Birthdate = Convert.ToDateTime(BirthDateTextBox.Text),
                 Education = EducationTextBox.Text,
-                Photo = BotteledImage ?? null,
+                Photo = BottledImage ?? null,
                 FullName = FullnameTextBox.Text,
                 MemberId = MemberIdTextBox.Text,
                 ReadingRoomNumber = Convert.ToInt32(ReadingRoomTextBox.Text),
-
+                TelephoneNumber = TelephoneNumberTextBox.Text
             };
             Host.AcceptDomainObject(SelectedMember, IsAddition);
         }

@@ -119,7 +119,7 @@ namespace ADO_Data_Access.CommandBuilder
                                                   "address = @address,\n" +
                                                   "telephone_no = @telephoneNumber,\n" +
                                                   "education = @education,\n" +
-                                                  "reading_room_number = @readingRoomNumber\n" +
+                                                  "reading_room_number = @readingRoomNumber,\n" +
                                                   "photo = @photo,\n" +
                                                   "fullname = @fullname\n" +
                                                   "WHERE member_id_no = @targetMemberId");
